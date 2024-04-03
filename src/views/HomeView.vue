@@ -8,8 +8,8 @@ import PhotoRoll from '@/components/PhotoRoll.vue';
     <div class="container">
       Layout
     </div>
-    <div>Settings</div>
-    <div>
+    <div class="container">Settings</div>
+    <div class="container">
       <PhotoUploader />
     </div>
     <div class="mt-1">
