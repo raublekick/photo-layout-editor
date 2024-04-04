@@ -7,12 +7,6 @@ import NavMenu from '@/components/NavMenu.vue'
   <div>
     <header>
       <NavMenu />
-      <div class="wrapper">
-        <nav>
-          <RouterLink to="/">Home</RouterLink>
-          <RouterLink to="/about">About</RouterLink>
-        </nav>
-      </div>
     </header>
 
     <RouterView />

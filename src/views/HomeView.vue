@@ -1,19 +1,22 @@
 <script setup lang="ts">
-import PhotoUploader from '@/components/PhotoUploader.vue';
+import LayoutContainer from '@/components/LayoutContainer.vue';
 import PhotoRoll from '@/components/PhotoRoll.vue';
 </script>
 
 <template>
   <main>
     <div class="container">
-      Layout
+      <LayoutContainer />
     </div>
-    <div class="container">Settings</div>
-    <div class="container">
-      <PhotoUploader />
-    </div>
-    <div class="mt-1">
+
+
+    <div class="mt-1 position-absolute bottom-0 start-0 roll">
       <PhotoRoll />
     </div>
   </main>
 </template>
+<style>
+.roll {
+  width: 100%;
+}
+</style>

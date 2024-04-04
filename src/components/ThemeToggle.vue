@@ -12,20 +12,24 @@ const themes = ref<Array<Theme>>([
   { name: 'auto', icon: 'bi-circle-half' }
 ])
 
-const activeTheme = ref<Theme>({ name: 'dark', icon: 'bi-moon-stars-fill' })
+const activeTheme = ref<Theme>({ name: 'auto', icon: 'bi-circle-half' })
 
-const setTheme = theme => {
+const setTheme = (theme: string) => {
   if (theme === 'auto') {
     document.documentElement.setAttribute('data-bs-theme', (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'))
   } else {
     document.documentElement.setAttribute('data-bs-theme', theme)
-
   }
-  activeTheme.value = themes.value.find(t => t.name === theme)
+  const themeObject = themes.value.find(t => t.name === theme)
+  if (!themeObject) {
+    activeTheme.value = { name: 'auto', icon: 'bi-circle-half' }
+  } else {
+    activeTheme.value = themeObject
+  }
 }
 
 const getStoredTheme = () => localStorage.getItem('theme')
-const setStoredTheme = theme => localStorage.setItem('theme', theme)
+const setStoredTheme = (theme: string) => localStorage.setItem('theme', theme)
 
 const getPreferredTheme = () => {
   const storedTheme = getStoredTheme()
@@ -36,7 +40,7 @@ const getPreferredTheme = () => {
   return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
 }
 
-const changeTheme = theme => {
+const changeTheme = (theme: string) => {
   setStoredTheme(theme)
   setTheme(theme)
 }
@@ -58,12 +62,12 @@ onMounted(() => {
 <template>
 
   <button class="btn btn-link nav-link py-2 px-0 px-lg-2 dropdown-toggle d-flex align-items-center show" id="bd-theme"
-    type="button" aria-expanded="true" data-bs-toggle="dropdown" data-bs-display="static"
+    type="button" aria-expanded="false" data-bs-toggle="dropdown" data-bs-display="static"
     aria-label="Toggle theme (dark)">
     <i class="bi my-1 theme-icon-active bi-moon-stars-fill"></i>
     <span class="d-lg-none ms-2" id="bd-theme-text">Toggle theme</span>
   </button>
-  <ul class="dropdown-menu dropdown-menu-end show" aria-labelledby="bd-theme-text" data-bs-popper="static">
+  <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="bd-theme-text" data-bs-popper="static">
     <template v-for="theme in themes" :key="theme.name">
       <li>
         <button type="button" @click="changeTheme(theme.name)"

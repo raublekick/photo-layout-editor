@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
 import { Collapse } from 'bootstrap'
+import PhotoUploader from '@/components/PhotoUploader.vue'
 import { usePhotoStore } from '@/stores/photos'
 const photoStore = usePhotoStore()
 const photoRollCollapse = ref<Collapse>()
@@ -34,7 +35,11 @@ onMounted(() => {
 
   </div>
   <div class="" id="photoroll">
-    <div class="photo-roll">
+    <div class="photo-roll mt-2 mb-2">
+      <div class="photo">
+        <PhotoUploader />
+      </div>
+
       <div v-for="(photo, index) in photoStore.photos" :key="index" class="photo">
         <img class="photo" :src="photo.dataUrl" alt="photo" />
       </div>
